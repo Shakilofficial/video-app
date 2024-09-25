@@ -1,0 +1,17 @@
+{
+  "name": "video-app",
+  "version": "1.0.0",
+  "description": "This is a JavaScript based Video Backend Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "JavaScript",
+    "NodeJs",
+    "ExpressJs",
+    "VideoApp"
+  ],
+  "author": "Md Shakil Hossain",
+  "license": "ISC"
+}
