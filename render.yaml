@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: video-app
+    env: node
+    region: oregon
+    buildCommand: npm run build # The 'build' command you added earlier
+    startCommand: npm run start # This will run the start script in your package.json
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false # Set this to false if you don't want to sync it across multiple services
+      - key: CLOUDINARY_API_KEY
+        sync: false # Similarly for other environment variables
