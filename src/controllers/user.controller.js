@@ -113,8 +113,10 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new apiError(401, "Invalid user credentials");
   }
 
-  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
-  console.log("AccessToken:", accessToken, "RefreshToken:", refreshToken);
+  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+    user._id
+  );
+  // console.log("AccessToken:", accessToken, "RefreshToken:", refreshToken);
 
   const loggedUser = await User.findById(user._id).select(
     "-password -refreshToken"
@@ -142,11 +144,18 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
-  await User.findByIdAndUpdate(req.user._id),
+  await User.findByIdAndUpdate(
+    req.user._id,
     {
-      $unset: { refreshToken: 1 },
+      $unset: {
+        refreshToken: 1, // this removes the field from document
+      },
     },
-    { new: true };
+    {
+      new: true,
+    }
+  );
+
   const options = {
     httpOnly: true,
     secure: true,
@@ -158,5 +167,5 @@ const logoutUser = asyncHandler(async (req, res) => {
     .clearCookie("refreshToken", options)
     .json(new apiResponse(200, {}, "User logged Out"));
 });
-export { loginUser, logoutUser, registerUser };
 
+export { loginUser, logoutUser, registerUser };
